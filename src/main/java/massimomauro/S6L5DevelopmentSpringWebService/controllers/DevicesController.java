@@ -20,13 +20,13 @@ public class DevicesController {
     // 1. - POST http://localhost:3001/devices (+ req.body)
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED) // <-- 201
-    public Device saveDevice(@RequestBody NewDevicePayload body) {
-        return devicesService.save(body);
+    public Device saveDevice() {
+        return devicesService.save();
     }
 
     // 2. - GET http://localhost:3001/devices
     @GetMapping("")
-    public Page<Device> getUsers(@RequestParam(defaultValue = "0") int page,
+    public Page<Device> getDevices(@RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
         return devicesService.getDevices(page, size, sortBy);
     }

@@ -2,6 +2,7 @@ package massimomauro.S6L5DevelopmentSpringWebService.services;
 
 import massimomauro.S6L5DevelopmentSpringWebService.entities.Device;
 import massimomauro.S6L5DevelopmentSpringWebService.entities.User;
+import massimomauro.S6L5DevelopmentSpringWebService.enums.DeviceStatus;
 import massimomauro.S6L5DevelopmentSpringWebService.exceptions.BadRequestException;
 import massimomauro.S6L5DevelopmentSpringWebService.exceptions.NotFoundException;
 import massimomauro.S6L5DevelopmentSpringWebService.payloads.NewDevicePayload;
@@ -21,11 +22,9 @@ public class DevicesService {
     @Autowired
     private UsersService usersService;
 
-    public Device save( NewDevicePayload body) {
-        User user = usersService.findById(body.getAuthorId());
+    public Device save() {
         Device newDevice = new Device();
-        newDevice.setDeviceStatus(body.getDeviceStatus());
-        newDevice.setUser(user);
+        newDevice.setDeviceStatus(DeviceStatus.DISPONIBILE);
         return devicesRepository.save(newDevice);
     }
 

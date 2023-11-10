@@ -5,6 +5,6 @@ import massimomauro.S6L5DevelopmentSpringWebService.enums.DeviceStatus;
 
 @Getter
 public class NewDevicePayload {
-    private int authorId;
+    private int userId;
     private DeviceStatus deviceStatus;
 }

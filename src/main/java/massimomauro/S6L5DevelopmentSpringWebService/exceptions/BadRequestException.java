@@ -1,7 +1,16 @@
 package massimomauro.S6L5DevelopmentSpringWebService.exceptions;
 
+import org.springframework.validation.ObjectError;
+
+import java.util.List;
+
 public class BadRequestException extends RuntimeException{
-    public BadRequestException(String message) {
+    private List<ObjectError> errorsList;
+    public BadRequestException(String message){
         super(message);
+    }
+
+    public BadRequestException(List<ObjectError> errors){
+        this.errorsList = errors;
     }
 }

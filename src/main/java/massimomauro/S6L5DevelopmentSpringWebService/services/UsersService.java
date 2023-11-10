@@ -30,12 +30,11 @@ public class UsersService {
             throw new BadRequestException("L'email " + body.email() + " è già stata utilizzata");
         });
         User newUser = new User();
-
+        newUser.setUsername(body.username());
         newUser.setName(body.name());
         newUser.setSurname(body.surname());
         newUser.setEmail(body.email());
-        User savedUser = usersRepository.save(newUser);
-        return savedUser;
+        return usersRepository.save(newUser);
 
     }
 

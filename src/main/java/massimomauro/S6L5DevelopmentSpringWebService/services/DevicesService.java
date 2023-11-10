@@ -44,7 +44,7 @@ public class DevicesService {
         devicesRepository.delete(found);
     }
 
-    public Device findByIdAndSetStatus(int id, Device body) {
+    public Device findByIdAndSetStatus(int id, NewDevicePayload body) {
 
         Device found = this.findById(id);
 

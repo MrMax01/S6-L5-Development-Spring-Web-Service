@@ -3,6 +3,7 @@ package massimomauro.S6L5DevelopmentSpringWebService.services;
 import massimomauro.S6L5DevelopmentSpringWebService.entities.User;
 import massimomauro.S6L5DevelopmentSpringWebService.exceptions.BadRequestException;
 import massimomauro.S6L5DevelopmentSpringWebService.exceptions.NotFoundException;
+import massimomauro.S6L5DevelopmentSpringWebService.payloads.NewUserDTO;
 import massimomauro.S6L5DevelopmentSpringWebService.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,17 +12,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 @Service
 public class UsersService {
     @Autowired
     private UsersRepository usersRepository;
 
-    public User save(User body) {
-        usersRepository.findByEmail(body.getEmail()).ifPresent(user -> {
-            throw new BadRequestException("L'email " + body.getEmail() + " è già stata utilizzata");
-        });
+    public User save(NewUserDTO body) throws IOException {
 
-        return usersRepository.save(body);
+        usersRepository.findByEmail(body.email()).ifPresent(user -> {
+            throw new BadRequestException("L'email " + body.email() + " è già stata utilizzata");
+        });
+        User newUser = new User();
+
+        newUser.setName(body.name());
+        newUser.setSurname(body.surname());
+        newUser.setEmail(body.email());
+        User savedUser = usersRepository.save(newUser);
+        return savedUser;
+
     }
 
     public Page<User> getUsers(int page, int size, String sort) {
@@ -30,16 +40,16 @@ public class UsersService {
         return usersRepository.findAll(pageable);
     }
 
-    public User findById(int id) {
+    public User findById(int id)  throws NotFoundException{
         return usersRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-    public void findByIdAndDelete(int id) {
+    public void findByIdAndDelete(int id) throws NotFoundException {
         User found = this.findById(id);
         usersRepository.delete(found);
     }
 
-    public User findByIdAndUpdate(int id, User body) {
+    public User findByIdAndUpdate(int id, User body) throws NotFoundException {
 
         User found = this.findById(id);
         found.setEmail(body.getEmail());

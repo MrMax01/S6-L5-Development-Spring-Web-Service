@@ -13,33 +13,33 @@ public class UsersController {
     @Autowired
     UsersService usersService;
 
-    // 1. - POST http://localhost:3001/authors (+ req.body)
+    // 1. - POST http://localhost:3001/users (+ req.body)
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED) // <-- 201
     public User saveUser(@RequestBody User body) throws Exception {
         return usersService.save(body);
     }
 
-    // 2. - GET http://localhost:3001/authors
+    // 2. - GET http://localhost:3001/users
     @GetMapping("")
     public Page<User> getUsers(@RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
         return usersService.getUsers(page, size, sortBy);
     }
 
-    // 3. - GET http://localhost:3001/authors/{id}
+    // 3. - GET http://localhost:3001/users/{id}
     @GetMapping("/{authorId}")
     public User findById(@PathVariable int authorId){
         return usersService.findById(authorId);
     }
 
-    // 4. - PUT http://localhost:3001/authors/{id} (+ req.body)
+    // 4. - PUT http://localhost:3001/users/{id} (+ req.body)
     @PutMapping("/{authorId}")
     public User findAndUpdate(@PathVariable int authorId, @RequestBody User body){
         return usersService.findByIdAndUpdate(authorId, body);
     }
 
-    // 5. - DELETE http://localhost:3001/authors/{id}
+    // 5. - DELETE http://localhost:3001/users/{id}
     @DeleteMapping("/{authorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT) // <-- 204 NO CONTENT
     public void findAndDelete(@PathVariable int authorId) {

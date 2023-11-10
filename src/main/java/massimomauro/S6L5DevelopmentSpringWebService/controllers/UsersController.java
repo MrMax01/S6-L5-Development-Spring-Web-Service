@@ -70,9 +70,15 @@ public class UsersController {
         return usersService.uploadPicture(body);
     }
 
-    @PutMapping("/{id}/uploadAvatar")
+    @PutMapping("/{id}/avatar")
     public User findUserByIdAndUploadAvatar(@PathVariable int id, @RequestParam("avatar") MultipartFile body)  throws IOException{
         return  usersService.findUserByIdSetAvatar(id,body);
+    }
+
+    @GetMapping("/{id}/avatar")
+    public String findAvatarById(@PathVariable int id){
+
+        return usersService.findAvatarById(id);
     }
 
 

@@ -75,4 +75,9 @@ public class UsersService {
       return found;
     }
 
+    public  String findAvatarById(int id){
+        User found = this.findById(id);
+        return found.getAvatarURL();
+    }
+
 }

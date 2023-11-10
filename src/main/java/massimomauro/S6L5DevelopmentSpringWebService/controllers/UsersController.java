@@ -64,11 +64,18 @@ public class UsersController {
 
     @PostMapping("/upload")
     public String uploadExample(@RequestParam("avatar") MultipartFile body) throws IOException {
-        // il nome del parametro "avatar" deve corrispondere ESATTAMENTE al nome dell'attributo del FormData che si è concordato col frontend per allegare il file
+
         System.out.println(body.getSize());
         System.out.println(body.getContentType());
         return usersService.uploadPicture(body);
     }
+
+    @PutMapping("/{id}/uploadAvatar")
+    public User findUserByIdAndUploadAvatar(@PathVariable int id, @RequestParam("avatar") MultipartFile body)  throws IOException{
+        return  usersService.findUserByIdSetAvatar(id,body);
+    }
+
+
 
 
 

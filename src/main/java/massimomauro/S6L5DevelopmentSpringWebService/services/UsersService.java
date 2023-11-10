@@ -69,6 +69,10 @@ public class UsersService {
         return (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
     }
 
-
+    public User findUserByIdSetAvatar (int id, MultipartFile file ) throws IOException{
+        User found = this.findById(id);
+        found.setAvatarURL((String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url"));
+      return found;
+    }
 
 }

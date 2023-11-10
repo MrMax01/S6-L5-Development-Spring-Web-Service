@@ -51,11 +51,6 @@ public class DevicesService {
         found.setUser(userFound);
         return devicesRepository.save(found);
     }
-    /*
-    public Device giveDeviceToUser(Device body) {
-        User user = usersService.findById(body.getUser());
 
-    }
-    */
 
 }

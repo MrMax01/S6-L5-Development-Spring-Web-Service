@@ -1,5 +1,7 @@
 package massimomauro.S6L5DevelopmentSpringWebService.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import massimomauro.S6L5DevelopmentSpringWebService.entities.User;
 import massimomauro.S6L5DevelopmentSpringWebService.exceptions.BadRequestException;
 import massimomauro.S6L5DevelopmentSpringWebService.exceptions.NotFoundException;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -18,6 +21,8 @@ import java.io.IOException;
 public class UsersService {
     @Autowired
     private UsersRepository usersRepository;
+    @Autowired
+    private Cloudinary cloudinary;
 
     public User save(NewUserDTO body) throws IOException {
 
@@ -60,6 +65,9 @@ public class UsersService {
         return usersRepository.save(found);
     }
 
+    public String uploadPicture(MultipartFile file) throws IOException {
+        return (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+    }
 
 
 

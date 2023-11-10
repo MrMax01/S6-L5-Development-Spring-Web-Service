@@ -49,4 +49,6 @@ public class DevicesController {
     public void findAndDelete(@PathVariable int deviceId) {
         devicesService.findByIdAndDelete(deviceId);
     }
+
+
 }

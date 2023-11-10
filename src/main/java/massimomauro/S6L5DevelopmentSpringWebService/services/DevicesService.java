@@ -46,8 +46,9 @@ public class DevicesService {
     public Device findByIdAndSetStatus(int id, NewDevicePayload body) {
 
         Device found = this.findById(id);
-
+        User userFound = usersService.findById(body.getUserId());
         found.setDeviceStatus(body.getDeviceStatus());
+        found.setUser(userFound);
         return devicesRepository.save(found);
     }
     /*
